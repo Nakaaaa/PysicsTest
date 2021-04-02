@@ -12,6 +12,7 @@ public class Wind2 : Common
     /// <summary>
     /// 風圧を算出する。
     /// </summary>
+    /// <returns>0.05 * 風速^2</returns>
     private float WindPressure(int speed)
     {
         int windSpeed = speed;
@@ -20,11 +21,35 @@ public class Wind2 : Common
         return result;
     }
 
+    /// <summary>
+    /// 体積
+    /// </summary>
+    /// <returns>x * y * z</returns>
+    private float Taiseki()
+    {
+         float x = targetRB.transform.lossyScale.x;
+         float y = targetRB.transform.lossyScale.y;
+         float z = targetRB.transform.lossyScale.z;
+
+        return x * y * z;
+    }
+
+    /// <summary>
+    /// 風力
+    /// </summary>
+    /// <returns>風圧 * 体積 / 時間^2</returns>
+    private float Kinnikun()
+    {
+        return WindPressure(speed) + Taiseki() / (1 ^ 2);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Target"))
         {
-            targetRB.AddForce(new Vector3(WindPressure(speed), 0.0f, 0.0f), ForceMode.Impulse);
+            Debug.Log(Kinnikun());
+            //targetRB.AddForce(new Vector3(WindPressure(speed), 0.0f, 0.0f), ForceMode.Impulse);
+            targetRB.AddForce(new Vector3(Kinnikun(), 0.0f, 0.0f), ForceMode.Impulse);
         }
     }
 
