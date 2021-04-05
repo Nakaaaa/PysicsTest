@@ -38,7 +38,7 @@ public class Wind2 : Common
     /// 風力
     /// </summary>
     /// <returns>風圧 * 体積 / 時間^2</returns>
-    private float Kinnikun()
+    private float WindPower()
     {
         return WindPressure(speed) + Taiseki() / (1 ^ 2);
     }
@@ -47,9 +47,9 @@ public class Wind2 : Common
     {
         if (other.gameObject.CompareTag("Target"))
         {
-            Debug.Log(Kinnikun());
+            Debug.Log(WindPower());
             //targetRB.AddForce(new Vector3(WindPressure(speed), 0.0f, 0.0f), ForceMode.Impulse);
-            targetRB.AddForce(new Vector3(Kinnikun(), 0.0f, 0.0f), ForceMode.Impulse);
+            targetRB.AddForce(new Vector3(WindPower(), 0.0f, 0.0f), ForceMode.Impulse);
         }
     }
 
