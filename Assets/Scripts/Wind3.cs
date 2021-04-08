@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Wind3 : Common
 {
+    // 空気抵抗を与えるのが目的
+
     public float coefficient;   // 空気抵抗係数
     public Vector3 velocity;    // 風速
 
@@ -27,6 +29,7 @@ public class Wind3 : Common
     {
         // 相対速度計算
         var relativeVelocity = velocity - other.attachedRigidbody.velocity;
+        // 空気抵抗を与える
         other.attachedRigidbody.AddForce(coefficient * relativeVelocity);
     }
 }
